@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "pedidos")
 @Data
@@ -20,6 +22,7 @@ public class Pedido {
     private Integer idPedido; // ID del pedido
 
     @Column(nullable=false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") // Formato de la fecha, elimina la hora.
     private Date fechaCreacion; // Se coloca Date porque la base de datos funciona con este y no con LocalDate.
     // (YYYY-MM-DD)
 

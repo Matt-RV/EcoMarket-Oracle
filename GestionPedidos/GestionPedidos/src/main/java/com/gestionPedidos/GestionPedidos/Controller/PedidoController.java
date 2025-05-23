@@ -77,7 +77,7 @@ public class PedidoController {
             
             // Guarda los cambios.
             pedidoService.save(tmp);
-            return ResponseEntity.ok(tmp); 
+            return ResponseEntity.ok(tmp); // Devuelve el pedido actualizado.
         } catch (Exception e) { 
             return ResponseEntity.notFound().build(); 
         }
@@ -167,8 +167,7 @@ public class PedidoController {
      * 
      */
     @GetMapping("/fechaCreacion/{fechaCreacion}")
-    public ResponseEntity<List<Pedido>> buscarPorFechaCreacion(
-        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCreacion) { // Darle un formato a la fecha.
+    public ResponseEntity<List<Pedido>> buscarPorFechaCreacion(@PathVariable Date fechaCreacion) { // Darle un formato a la fecha.
         List<Pedido> pedidos = pedidoService.findByFechaCreacion(fechaCreacion); // Busca por fecha de creación.
         if (pedidos.isEmpty()) { 
             return ResponseEntity.notFound().build(); 
