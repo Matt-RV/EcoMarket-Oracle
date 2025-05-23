@@ -167,13 +167,13 @@ public class PedidoController {
      * 
      */
     @GetMapping("/fechaCreacion/{fechaCreacion}")
-    public ResponseEntity<List<Pedido>> buscarPorFechaCreacion(@PathVariable Date fechaCreacion) { // Darle un formato a la fecha.
-        List<Pedido> pedidos = pedidoService.findByFechaCreacion(fechaCreacion); // Busca por fecha de creación.
+    public ResponseEntity<List<Pedido>> buscarPorFechaCreacion(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCreacion) { // Formato a la fecha
+        List<Pedido> pedidos = pedidoService.findByFechaCreacion(fechaCreacion); 
         if (pedidos.isEmpty()) { 
             return ResponseEntity.notFound().build(); 
         }
         return ResponseEntity.ok(pedidos);
-    }
+}
 
     
     
