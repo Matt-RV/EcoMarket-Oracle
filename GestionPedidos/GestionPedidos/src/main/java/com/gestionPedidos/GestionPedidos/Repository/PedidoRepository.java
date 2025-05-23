@@ -18,8 +18,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
     List<Pedido> findByFechaCreacion(Date fechaCreacion); 
 
     // Método para buscar pedidos por ID del cliente
-    List<Pedido> findByIdCliente(Integer idCliente); 
-    
-
-
+    List<Pedido> findByClienteIdCliente(Integer idCliente);  
 }

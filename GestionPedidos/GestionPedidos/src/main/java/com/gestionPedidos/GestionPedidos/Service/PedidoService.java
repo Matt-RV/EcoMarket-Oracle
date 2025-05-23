@@ -53,6 +53,6 @@ public class PedidoService {
 
     // Método para buscar pedidos por cliente
     public List<Pedido> findByIdCliente(Integer idCliente) { 
-        return pedidoRepository.findByIdCliente(idCliente);
+        return pedidoRepository.findByClienteIdCliente(idCliente); 
     }
 }    
