@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -165,7 +166,7 @@ public class PedidoController {
      * Si no encuentra pedidos con esa fecha, devuelve un HTTP 404 Not Found.
      * Ejemplo: /api/v1/pedidos/fechaCreacion/2025-05-05
      * 
-     */
+
     @GetMapping("/fechaCreacion/{fechaCreacion}")
     public ResponseEntity<List<Pedido>> buscarPorFechaCreacion(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCreacion) { // Formato a la fecha
         List<Pedido> pedidos = pedidoService.findByFechaCreacion(fechaCreacion); 
@@ -173,8 +174,25 @@ public class PedidoController {
             return ResponseEntity.notFound().build(); 
         }
         return ResponseEntity.ok(pedidos);
-}
+    }
+    */
 
+    @GetMapping("/fechaCreacion/{fechaCreacion}")
+    public ResponseEntity<List<Pedido>> buscarPorFechaCreacionPath(@PathVariable String fechaCreacion) { 
+        try {
+            // Parsear la fecha manualmente
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = formatter.parse(fechaCreacion);
+        
+            List<Pedido> pedidos = pedidoService.findByFechaCreacion(fecha);
+            if (pedidos.isEmpty()) { 
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(pedidos);
+        } catch (Exception e) { 
+            return ResponseEntity.badRequest().build();
+        }
+    }
     
     
     /*
