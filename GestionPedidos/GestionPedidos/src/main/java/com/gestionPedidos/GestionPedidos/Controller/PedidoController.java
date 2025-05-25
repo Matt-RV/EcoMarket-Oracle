@@ -3,13 +3,11 @@ package com.gestionPedidos.GestionPedidos.Controller;
 import com.gestionPedidos.GestionPedidos.Model.Pedido;
 import com.gestionPedidos.GestionPedidos.Service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 @RestController
@@ -154,46 +152,7 @@ public class PedidoController {
             return ResponseEntity.notFound().build(); // Devuelve un HTTP 404 Not Found si no hay pedidos con ese estado.
         }
         return ResponseEntity.ok(pedidos); // Devuelve un HTTP 200 OK con la lista de pedidos encontrados.
-    }    
-
-
-
-
-    /*
-     * Busca pedidos por fecha de creación.
-     * Se busca por fecha de creación. Ejemplo: 2025-05-05
-     * Retorna un HTTP 200 OK con la lista de pedidos encontrados por fecha.
-     * Si no encuentra pedidos con esa fecha, devuelve un HTTP 404 Not Found.
-     * Ejemplo: /api/v1/pedidos/fechaCreacion/2025-05-05
-     * 
-
-    @GetMapping("/fechaCreacion/{fechaCreacion}")
-    public ResponseEntity<List<Pedido>> buscarPorFechaCreacion(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCreacion) { // Formato a la fecha
-        List<Pedido> pedidos = pedidoService.findByFechaCreacion(fechaCreacion); 
-        if (pedidos.isEmpty()) { 
-            return ResponseEntity.notFound().build(); 
-        }
-        return ResponseEntity.ok(pedidos);
-    }
-    */
-
-    @GetMapping("/fechaCreacion/{fechaCreacion}")
-    public ResponseEntity<List<Pedido>> buscarPorFechaCreacionPath(@PathVariable String fechaCreacion) { 
-        try {
-            // Parsear la fecha manualmente
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date fecha = formatter.parse(fechaCreacion);
-        
-            List<Pedido> pedidos = pedidoService.findByFechaCreacion(fecha);
-            if (pedidos.isEmpty()) { 
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(pedidos);
-        } catch (Exception e) { 
-            return ResponseEntity.badRequest().build();
-        }
-    }
-    
+    }        
     
     /*
      * Busca pedidos por ID de cliente.

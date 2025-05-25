@@ -6,7 +6,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 @Service
 @Transactional
@@ -44,11 +43,6 @@ public class PedidoService {
     // Método para buscar pedidos por estado
     public List<Pedido> findByEstado(String estado) { 
         return pedidoRepository.findByEstado(estado);
-    }
-
-    // Método para buscar pedidos por fecha de creación
-    public List<Pedido> findByFechaCreacion(Date fechaCreacion) { 
-        return pedidoRepository.findByFechaCreacion(fechaCreacion);
     }
 
     // Método para buscar pedidos por cliente
