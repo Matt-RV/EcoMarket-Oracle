@@ -95,12 +95,18 @@ public class PedidoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Integer id) {
         try {
-            pedidoService.delete(id); // Elimina el pedido por ID.
-            return ResponseEntity.ok().build(); 
-        } catch (Exception e) { 
+        // Primero verificar si el pedido existe
+        Pedido pedido = pedidoService.findById(id);
+        if (pedido == null) {
             return ResponseEntity.notFound().build();
         }
+        // Si existe, eliminarlo
+        pedidoService.delete(id);
+        return ResponseEntity.ok().build();
+    } catch (Exception e) {
+        return ResponseEntity.notFound().build();
     }
+}
 
 
 
